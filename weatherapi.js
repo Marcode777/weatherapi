@@ -1,13 +1,13 @@
 
 
 var weather = new XMLHttpRequest();
-weather.open("GET", "http://api.wunderground.com/api/3758d4a57136a50e/conditions/q/NY/New_York_City.json", false); // on this line of code conditions, NY, and New_York_City can be substitutded for what kind and which cities you want results for 
+weather.open("GET", "http://api.wunderground.com/api/3758d4a57136a50e/conditions/q/NY/New_York_City.json", false); // on this line of code conditions, NY, and New_York_City can be substituted for what kind and which cities you want results for 
 weather.send(null);
 
 var r = JSON.parse(weather.response);
 
-var dis = "Current location: " + r.current_observation.display_location + "<p>";
-dis +=  "current temp: " + r.current_observation.temperature_string + "<p>";
+var dis = "Current location: " + r.current_observation.display_location + "<p><strong>";
+dis +=  "current temp: " + r.current_observation.temperature_string + "<p><strong>";
 dis +=  " current wind speed: " + r.current_observation.wind_string; 
 document.getElementById("here").innerHTML = dis;
 
