@@ -8,7 +8,8 @@ var r = JSON.parse(weather.response);
 
 var dis = "Current location: " + r.current_observation.display_location + "<p><strong>";
 dis +=  "current temp: " + r.current_observation.temperature_string + "<p><strong>";
-dis +=  " current wind speed: " + r.current_observation.wind_string; 
+dis +=  " current wind speed: " + r.current_observation.wind_string +"<p><strong>"
+dis += "current wind direction:" +r.current_observation.wind_dir_string;
 document.getElementById("here").innerHTML = dis;
 
 
