@@ -7,7 +7,7 @@ $(document).ready(function(){
     type:"GET",
     url: "http://api.wunderground.com/api/3758d4a57136a50e/conditions/q/NY/New_York_City.json",
     success: function(data, textStatus, jqXHR){
-      console.log(data.current_observation); //current_observation is from the key-value pair response, from reading the documentation
+      console.log(data.current_observation); //current_observation is from the key-value pair response, from reading the documentation and from opening console.log(data);
       console.log(data.response);
       console.log(textStatus);
       console.log(jqXHR);
@@ -17,6 +17,8 @@ $(document).ready(function(){
       yeah += "solar radiation:" + data.current_observation.solarradiation + "<p><strong>";
       yeah += "wind direction:" + data.current_observation.wind_dir + "<p><strong>";
       yeah += "wind speed:" + data.current_observation.wind_mph + "<p><strong>";
+      yeah += "wind direction in degrees:" + data.current_observation.wind_degrees + "<p><strong>";
+    
 
       document.getElementById("here").innerHTML = yeah;
     },
