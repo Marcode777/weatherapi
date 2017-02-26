@@ -1,3 +1,6 @@
+var https = require("https");
+
+
 exports.handler = (event, context) => {
 
   try{
@@ -13,7 +16,7 @@ exports.handler = (event, context) => {
       console.log("launch request!");
       context.succeed(
         generateResponse(
-          buildSpeechletResponse("Welcome!!!!!!!! This is my first Alexa Skill! This is running on a deployed lambda function", true),
+          buildSpeechletResponse("Welcome!!!!!!!! Let's make this work!", true),
           {}
           )
       )
@@ -21,12 +24,34 @@ exports.handler = (event, context) => {
 
     case "IntentRequest":
     // > Intent Request
-      console.log("intent request!");
-      break;
+      console.log("intent request!"); // endpoint added here below
+      switch(event.request.intent.name){
+        case "getWeatherIntent":
+          console.log(event.request.intent.name);
+          var endpoint = "https://jsonplaceholder.typicode.com/posts/1"; // this works with this "placebo endpoint data"
+          var body = "";
+          var yeah
+          https.get(endpoint, (response) => {
+            response.on('data', (chunk) => {body += chunk})
+            response.on('end', () => {
+              var data = JSON.parse(body);
+              var weatherCount = data;
+              console.log(data);
+              context.succeed(
+                generateResponse(
+                  buildSpeechletResponse("current temp is ${weatherCount}", true),
+                  {}
+                  )
+                )
+            })
+          })
+      }
+      break; // endpoint added here above
 
     case "SessionEndedRequest":
     // > Session Ended Request
       console.log("session ended request!");
+      break;
 
     default:
       context.fail("invalid request type!: {event.request.type}");
