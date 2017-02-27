@@ -1,6 +1,7 @@
 var https = require("https");
 
 
+
 exports.handler = (event, context) => {
 
   try{
@@ -28,18 +29,17 @@ exports.handler = (event, context) => {
       switch(event.request.intent.name){
         case "getWeatherIntent":
           console.log(event.request.intent.name);
-          var endpoint = "https://jsonplaceholder.typicode.com/posts/1"; // this works with this "placebo endpoint data"
-          var body = "";
-          var yeah
+          var endpoint = "https://jsonplaceholder.typicode.com/users"; // this works with this "placebo endpoint data" https://jsonplaceholder.typicode.com/posts ***** api.openweathermap.org/data/2.5/weather?zip=10005,us&APPID=08d6215ef934232110949692d5ffb8da
+          var body = ""
           https.get(endpoint, (response) => {
             response.on('data', (chunk) => {body += chunk})
             response.on('end', () => {
               var data = JSON.parse(body);
-              var weatherCount = data;
               console.log(data);
+              var weatherCount = data.username; // might have something to do with this variable
               context.succeed(
                 generateResponse(
-                  buildSpeechletResponse("current temp is ${weatherCount}", true),
+                  buildSpeechletResponse("current is ${weatherCount}", true),
                   {}
                   )
                 )
