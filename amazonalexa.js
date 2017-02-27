@@ -28,15 +28,13 @@ exports.handler = (event, context) => {
       console.log("intent request!"); // endpoint added here below
       switch(event.request.intent.name){
         case "getWeatherIntent":
-          console.log(event.request.intent.name);
           var endpoint = "https://jsonplaceholder.typicode.com/users"; // this works with this "placebo endpoint data" https://jsonplaceholder.typicode.com/posts ***** api.openweathermap.org/data/2.5/weather?zip=10005,us&APPID=08d6215ef934232110949692d5ffb8da
           var body = ""
           https.get(endpoint, (response) => {
             response.on('data', (chunk) => {body += chunk})
             response.on('end', () => {
               var data = JSON.parse(body);
-              console.log(data);
-              var weatherCount = data.username; // might have something to do with this variable
+              var weatherCount = data.users; // might have something to do with this variable
               context.succeed(
                 generateResponse(
                   buildSpeechletResponse("current is ${weatherCount}", true),
@@ -74,7 +72,7 @@ buildSpeechletResponse = (outputText, shouldEndSession) => {
   }
 }
 
-generateResponse = (sessionAttributes, speechletResponse) => {
+generateResponse = (speechletResponse, sessionAttributes) => {
   return {
     version: "1.0",
     sessionAttributes: sessionAttributes,
