@@ -44,13 +44,27 @@ exports.handler = (event, context) => {
                 )
             })
           })
-      }
+      
       break; // endpoint added here above
+
+       // this section is the new experimental/trial and error section
+        
+        case "getResponseIntent":
+          
+              context.succeed(
+                generateResponse(
+                  buildSpeechletResponse(`current response is this response`, true), // another key was to change the quotes surrounding object literals into backticks
+                  {}
+                  )
+                )
+      
+      break; // also added this break statement
+    } // this is the event request type end-bracket, every intent, both old and new should be contained here prior to this end-bracket
 
     case "SessionEndedRequest":
     // > Session Ended Request
       console.log("session ended request!");
-      break;
+      break; 
 
     default:
       context.fail("invalid request type!: {event.request.type}");
