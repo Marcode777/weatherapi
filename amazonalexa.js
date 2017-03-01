@@ -59,6 +59,17 @@ exports.handler = (event, context) => {
                 )
       
       break; // also added this break statement
+
+        case "getDiapersComIntent":
+
+              context.succeed(
+                generateResponse(
+                  buildSpeechletResponse(`Sure, what would you like to ask Diapers.com?`, true), // another key was to change the quotes surrounding object literals into backticks
+                  {}
+                  )
+                )
+
+        break;
     } // this is the event request type end-bracket, every intent, both old and new should be contained here prior to this end-bracket
 
     case "SessionEndedRequest":
