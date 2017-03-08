@@ -36,9 +36,10 @@ exports.handler = (event, context) => {
             response.on('end', () => {
               var data = JSON.parse(body);
               var weatherCount = data.current_observation.temperature_string; // when accessing data, and accessing items, such as the username of the first item in an array, use syntax in this form: data[0].username
+              var weatherConditions = data.current_observation.weather; // this variable is a new addition in order to give the current conditions
               context.succeed(
                 generateResponse(
-                  buildSpeechletResponse(`current temperature in New York City is ${weatherCount}`, true), // another key was to change the quotes surrounding object literals into backticks
+                  buildSpeechletResponse(`current temperature in New York City is ${weatherCount} and the current conditions in New York City are ${weatherConditions}`, true), // another key was to change the quotes surrounding object literals into backticks
                   {}
                   )
                 )
